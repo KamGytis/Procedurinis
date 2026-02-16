@@ -1,52 +1,72 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <array>
 #include <iomanip>
+#include <algorithm>
 
 struct Student
 {
-    std::string vardas = "A";
-    std::string pavarde = "BB";
-
-    std::vector<int> paz = { 0 };
-    int egz;
-    double rez;
-
+    std::string vardas;
+    std::string pavarde;
+    std::vector<int> paz;
+    int egz = 0;
+    double galutinis = 0.00;
+    double galutinis_med = 0.00;
 };
 
-using namespace std;
 int main()
 {
-    Student A;
+    using namespace std;
+
+    int student_sk;
+    cout << "Kiek studentu: ";
+    cin >> student_sk;
+    if (student_sk <= 0) {
+        cout << "Neteisingas studentu skaicius" << endl;
+        return 0;
+    }
     vector<Student> grupe;
-    for (int ii = 0; ii < 2; ii++)
+    grupe.reserve(student_sk);
+
+    for (int ii = 0; ii < student_sk; ++ii)
     {
-        cout << "Iveskite varda or pavarde: ";
+        Student A;
+        cout << "Iveskite varda ir pavarde: ";
         cin >> A.vardas >> A.pavarde;
-        cout << "Iveskite semestro pazymius:\nKiek pazymiu: ";
-        int n, temp, sum = 0;
+
+        cout << "Kiek pazymiu: ";
+        int n;
         cin >> n;
-        for (int i = 0; i < n; i++)
+        int sum = 0;
+        for (int i = 0; i < n; ++i)
         {
-            cout << "Iveskite " << i + 1 << " pazymi: " << n << ":" << endl;
+            int temp;
+            cout << "Iveskite " << i + 1 << " pazymi: ";
             cin >> temp;
             A.paz.push_back(temp);
             sum += temp;
         }
-        A.rez = sum / (double)n;
-        cout << "Iveskite egzamino pazymi: " << endl;
+        cout << "Iveskite egzamino pazymi: ";
         cin >> A.egz;
-        A.rez = (sum / n) * 0.4 + A.egz * 0.6;
-        grupe.push_back(A);
-        A.paz.clear();
+        double med = 0.0;
+        if (n > 0) {
+            sort(A.paz.begin(), A.paz.end());
+            if (n % 2 == 1) med = static_cast<double>(A.paz[n / 2]);
+            else med = (static_cast<double>(A.paz[n / 2 - 1]) + static_cast<double>(A.paz[n / 2])) / 2.0;
+        }
+        A.galutinis = (sum / n) * 0.4 + A.egz * 0.6;
+        A.galutinis_med = med * 0.4 + A.egz * 0.6;
+        grupe.push_back(std::move(A));
     }
-    for (auto A : grupe)
+
+    cout << left << setw(20) << "Pavarde" << setw(20) << "Vardas" << right << setw(16) << "Galutinis (Vid.)" << " / " << "Galutinis (Med.)" << endl;
+    cout << string(74, '-') << endl;
+
+    cout << fixed << setprecision(2);
+    for (const auto& A : grupe)
     {
-        std::cout << std::left << setw(10) << A.vardas << std::right << setw(10) << A.pavarde << endl;
-        for (auto a : A.paz) cout << setw(3) << a;
-        cout << setw(10) << A.egz << endl;
-        cout << setw(20) << A.rez << endl;
+        cout << left << setw(20) << A.pavarde << setw(20) << A.vardas << right << setw(16) << A.galutinis << setw(19) << A.galutinis_med << endl;
     }
+
     return 0;
 }
