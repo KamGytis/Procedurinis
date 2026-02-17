@@ -54,7 +54,7 @@ int main()
             if (n % 2 == 1) med = static_cast<double>(A.paz[n / 2]);
             else med = (static_cast<double>(A.paz[n / 2 - 1]) + static_cast<double>(A.paz[n / 2])) / 2.0;
         }
-        A.galutinis = (sum / n) * 0.4 + A.egz * 0.6;
+        A.galutinis = (sum/n) * 0.4 + A.egz * 0.6;
         A.galutinis_med = med * 0.4 + A.egz * 0.6;
         grupe.push_back(std::move(A));
     }
@@ -63,9 +63,9 @@ int main()
     cout << string(74, '-') << endl;
 
     cout << fixed << setprecision(2);
-    for (const auto& A : grupe)
+    for (const auto &A : grupe)
     {
-        cout << left << setw(20) << A.pavarde << setw(20) << A.vardas << right << setw(16) << A.galutinis << setw(19) << A.galutinis_med << endl;
+        cout << left << setw(20) << A.pavarde << setw(20) << A.vardas << right << setw(16) << A.galutinis << setw(19)<< A.galutinis_med <<endl;
     }
 
     return 0;
