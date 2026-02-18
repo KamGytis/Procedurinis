@@ -19,3 +19,5 @@ double galutinis_vid(int* paz, int paz_kiekis, int egz);
 
 int skaiciavimo_metodas();
 void pasirinkimo_metodas(int skaiciavimo_metodas, StudentasA& sk);
+
+void isvalyti_atminti(StudentasA* studentai, int studentu_kiekis);

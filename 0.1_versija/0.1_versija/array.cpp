@@ -1,4 +1,4 @@
-#include <limits>
+﻿#include <limits>
 #include<iostream>
 #include<string>
 #include<iomanip>
@@ -13,7 +13,7 @@ void arrayFunkcija() {
 	std::cout << "\n-------------------------Meniu-------------------------\n";
 	std::cout << "1 - ranka ivedimas\n";
 	std::cout << "2 - generuoti tik pazymius\n";
-	std::cout << "3 - generuoti student? vardus, pavard?s ir pa�ymius\n";
+	std::cout << "3 - generuoti studentu vardus, pavardės ir pazymius\n";
 	std::cout << "4 - baigti darba\n";
 	std::cin >> pasirinkimas;
 	if(std::cin.fail())
@@ -32,8 +32,24 @@ void arrayFunkcija() {
 
 		std:cout << "Iveskite pazymi (0-10). Baigti -1\n";
 		while (true) {
-			int paz = isvesti
+			int paz = isvesties_tikrinimas("Pazymys: ");
+			if (paz == -1) { break; }
+			IvestiPazymius(Studentas, paz);
 
+		}
+		studentas.egzaminas = isvesties_tikrinimas("Iveskite egzamino pazymi: ");
+
+		studento_pridejimas(studentai, studentu_kiekis, studentas);
+		std::cout << "Ar norite ivesti dar viena studentą? (1 - taip, 2 - ne): ";
+		std::cin >> chosen_option;
+		while (chosen_option == 1) {
+			if (studentu_kiekis > 0) {
+				int tipas skaiciavimo_metodas();
+				pasirinkimo_metodas(skaiciavimo_metodas, studentu_kiekis, chosen_option);
+				isvedimas(studentai, studentu_kiekis, chosen_option);
+			}
+			isvalyti_atminti(studentai, studentu_kiekis);
+			break;
 		}
 	}
 

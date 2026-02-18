@@ -85,6 +85,20 @@ void isvedimas(StudentasA* studentai, int studentu_kiekis, int metodas) {
             << std::setprecision(2) << studentai[i].rez << std::endl;
     }
 }
+void studento_pridejimas(StudentasA*& arr, int& studentu_kiekis, const StudentasA& kitas)
+{
+    StudentasA* temp = new StudentasA[kiekis + 1];
+
+    for (int i = 0; i < kiekis; ++i)
+    {
+        temp[i] = arr[i];
+    }
+    temp[kiekis] = naujas;
+
+    delete[] arr;
+    arr = temp;
+    kiekis++;
+}
 
 int ivesties_tikrinimas(const std::string& zinute)
 {
@@ -112,7 +126,7 @@ int ivesties_tikrinimas(const std::string& zinute)
 
 
 
-void atlaisvinti(StudentasA* arr, int kiekis) {
+void isvalyti_atminti(StudentasA* arr, int kiekis) {
     for (int i = 0; i < kiekis; i++) {
         delete[] arr[i].paz;
     }
