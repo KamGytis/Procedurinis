@@ -7,7 +7,7 @@
 #include <iomanip>
 #include <limits>
 
-
+//Funkcija, kuri prideda pazymi i studento pazymiu masyva, jei reikia padidina masyvo talpa
 void ivesti_pazymius(StudentasA& s, int paz)
 {
     if (s.paz_talpa == 0)
@@ -66,6 +66,8 @@ double galutinis_vid(double x, int egz) {
     return x * 0.4 + egz * 0.6;
 }
 
+//leidzia pasirinkti skaiciavimo metoda ir tikrina ar isvestis teisinga
+
 int skaiciavimo_metodas() {
     int metodas;
     while (true) {
@@ -85,6 +87,8 @@ int skaiciavimo_metodas() {
     }
 }
 
+//apskaiciuoja galutinius pazymius pagal galutini masyva ir pasirinkta metoda
+
 void pasirinkimo_metodas(int skaiciavimo_metodas, int studentu_kiekis, StudentasA* studentai) {
     for (int i = 0; i < studentu_kiekis; i++) {
         double x;
@@ -102,6 +106,8 @@ void pasirinkimo_metodas(int skaiciavimo_metodas, int studentu_kiekis, Studentas
     }
 }
 
+//printina studentus i lentele
+
 void isvedimas(StudentasA* studentai, int studentu_kiekis, int metodas) {
     std::string rez = (metodas == 1) ? "Galutinis (vidurkis)" : "Galutinis (mediana)";
     std::cout << std::left << std::setw(15) << "Vardas"
@@ -114,6 +120,9 @@ void isvedimas(StudentasA* studentai, int studentu_kiekis, int metodas) {
             << std::setprecision(2) << studentai[i].rez << std::endl;
     }
 }
+
+//prideda studenta i masyva
+
 void studento_pridejimas(StudentasA*& arr, int& studentu_kiekis, const StudentasA& kitas)
 {
     StudentasA* temp = new StudentasA[studentu_kiekis + 1];
@@ -129,6 +138,8 @@ void studento_pridejimas(StudentasA*& arr, int& studentu_kiekis, const Studentas
     studentu_kiekis++;
 }
 
+// tikrina ar isvestis yra pazymiu range
+
 int ivesties_tikrinimas(const std::string& zinute)
 {
     int value;
@@ -143,6 +154,8 @@ int ivesties_tikrinimas(const std::string& zinute)
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             continue;
         }
+
+        
         if (value == -1 || (value >= 0 && value <= 10))
         {
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -153,6 +166,35 @@ int ivesties_tikrinimas(const std::string& zinute)
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
 }
+
+//Funkcija generavimui random studentu skaiciui kad neuzstrigtu ir nesiblokintu
+
+int ivesties_skaicius(const std::string& zinute)
+{
+    int value;
+    while (true)
+    {
+        std::cout << zinute;
+        std::cin >> value;
+        if (std::cin.fail())
+        {
+            std::cout << "Ivestis turi buti skaicius, bandykite dar karta\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            continue;
+        }
+
+        if (value >= 1)  
+        {
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            return value;
+        }
+
+        std::cout << "Ivestis turi buti teigiamas skaicius\n";
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+}
+
 std::string ivesti_varda_ar_pavarde(const std::string& zinute)
 {
     std::string tekstas;
@@ -174,6 +216,3 @@ void atlaisvinti(StudentasA* arr, int studentu_kiekis)
     }
     delete[] arr;
 }
-
-
-

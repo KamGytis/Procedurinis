@@ -31,7 +31,7 @@ void arrayFunkcija() {
         if (pasirinkimas == 1) {
             StudentasA* studentai = nullptr;
             int studentu_kiekis = 0;
-            int chosen_option = 1;
+            std::string chosen_option = "taip";  
 
             do {
                 StudentasA studentas;
@@ -42,18 +42,17 @@ void arrayFunkcija() {
                 std::cout << "Iveskite pazymi (0-10). Baigti -1\n";
                 while (true) {
                     int paz = ivesties_tikrinimas("Pazymys: ");
-
                     if (paz == -1) break;
                     ivesti_pazymius(studentas, paz);
                 }
 
-                studentas.egz = ivesties_tikrinimas("Pazymys: ");
+                studentas.egz = ivesties_tikrinimas("Egzamino pazymys: ");
 
                 studento_pridejimas(studentai, studentu_kiekis, studentas);
 
-                std::cout << "Ar norite ivesti dar viena studenta? (1 - taip, 2 - ne): ";
-                std::cin >> chosen_option;
-            } while (chosen_option == 1);
+                std::cout << "Ar norite ivesti dar viena studenta? (iveskite 'taip' arba 'ne'): ";
+                std::cin >> chosen_option;   
+            } while (chosen_option == "taip");  
 
             if (studentu_kiekis > 0) {
                 int tipas = skaiciavimo_metodas();
@@ -76,18 +75,22 @@ void arrayFunkcija() {
                 studentas.vardas = ivesti_varda_ar_pavarde("Iveskite varda: ");
                 studentas.pavarde = ivesti_varda_ar_pavarde("Iveskite pavarde: ");
 
-                int n_kiekis = ivesties_tikrinimas("Kiek generuoti namu darbu pazymiu? ");
+                int n_kiekis = ivesties_skaicius("Kiek generuoti namu darbu pazymiu? ");  // ✅ Pakeista
 
+                std::cout << "Sugeneruoti namu darbu pazymiai: ";
                 for (int i = 0; i < n_kiekis; ++i) {
                     int paz = std::rand() % 10 + 1;
                     ivesti_pazymius(studentas, paz);
+                    std::cout << paz << " ";
                 }
+                std::cout << "\n";
 
                 studentas.egz = std::rand() % 10 + 1;
+                std::cout << "Sugeneruotas egzamino pazymys: " << studentas.egz << "\n";
 
                 studento_pridejimas(studentai, studentu_kiekis, studentas);
 
-                std::cout << "Ar norite ivesti dar viena studenta? (1 - taip, 2 - ne): ";
+                std::cout << "Ar norite ivesti dar viena studenta? (1 - taip, 0 - ne): ";
                 std::cin >> chosen_option;
             } while (chosen_option == 1);
 
@@ -105,8 +108,8 @@ void arrayFunkcija() {
             StudentasA* studentai = nullptr;
             int studentu_kiekis = 0;
 
-            int studentu_skaicius = ivesties_tikrinimas("Kiek generuoti studentu? ");
-            int n_kiekis = ivesties_tikrinimas("Kiek generuoti namu darbu pazymiu kiekvienam? ");
+            int studentu_skaicius = ivesties_skaicius("Kiek generuoti studentu? ");  
+            int n_kiekis = ivesties_skaicius("Kiek generuoti namu darbu pazymiu kiekvienam? "); 
 
             for (int i = 0; i < studentu_skaicius; ++i) {
                 StudentasA studentas;
@@ -115,11 +118,18 @@ void arrayFunkcija() {
                 studentas.vardas = s.vardas;
                 studentas.pavarde = s.pavarde;
 
+                std::cout << "\nStudentas: " << studentas.vardas << " " << studentas.pavarde << "\n";
+                std::cout << "Namu darbu pazymiai: ";
+
                 for (int j = 0; j < n_kiekis; ++j) {
-                    ivesti_pazymius(studentas, gen().paz);
+                    int paz = gen().paz;
+                    ivesti_pazymius(studentas, paz);
+                    std::cout << paz << " ";
                 }
+                std::cout << "\n";
 
                 studentas.egz = std::rand() % 10 + 1;
+                std::cout << "Egzamino pazymys: " << studentas.egz << "\n";
 
                 studento_pridejimas(studentai, studentu_kiekis, studentas);
             }
@@ -129,11 +139,6 @@ void arrayFunkcija() {
             isvedimas(studentai, studentu_kiekis, tipas);
 
             atlaisvinti(studentai, studentu_kiekis);
-            break;
-        }
-
-        if (pasirinkimas == 4) {
-            std::cout << "Programa baigta.\n";
             break;
         }
 
