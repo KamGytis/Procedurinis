@@ -7,7 +7,7 @@ void arrayFunkcija();
 int main()
 {
     while (true) {
-        cout << "Pasirinkite funkcija (1 - vector, 2 - array, 3 - baigimas):\n";
+        std::cout << "Pasirinkite funkcija (1 - vector, 2 - array, 3 - baigimas):\n";
         int pasirinkimas;
         std::cin >> pasirinkimas;
 
