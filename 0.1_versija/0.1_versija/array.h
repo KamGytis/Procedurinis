@@ -25,8 +25,4 @@ void isvedimas(StudentasA* studentai, int studentu_kiekis, int metodas);
 void studento_pridejimas(StudentasA*& arr, int& studentu_kiekis, const StudentasA& naujas);
 void atlaisvinti(StudentasA* arr, int studentu_kiekis);
 
-std::string ivesti_varda_ar_pavarde(const std::string& zinute);
-int ivesties_tikrinimas(const std::string& zinute);
-int ivesties_skaicius(const std::string& zinute);
-
 #endif

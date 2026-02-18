@@ -7,6 +7,7 @@
 
 #include "struktura.h"
 #include "array.h"
+#include "utils.h"
 
 void arrayFunkcija() {
 
@@ -75,7 +76,7 @@ void arrayFunkcija() {
                 studentas.vardas = ivesti_varda_ar_pavarde("Iveskite varda: ");
                 studentas.pavarde = ivesti_varda_ar_pavarde("Iveskite pavarde: ");
 
-                int n_kiekis = ivesties_skaicius("Kiek generuoti namu darbu pazymiu? ");  // ✅ Pakeista
+                int n_kiekis = ivesties_skaicius("Kiek generuoti namu darbu pazymiu? ");  
 
                 std::cout << "Sugeneruoti namu darbu pazymiai: ";
                 for (int i = 0; i < n_kiekis; ++i) {
