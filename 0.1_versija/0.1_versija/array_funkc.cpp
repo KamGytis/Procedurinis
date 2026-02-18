@@ -1,62 +1,91 @@
+﻿#include "array.h"  
+#include "struktura.h"
+
 #include <iostream>
 #include <string>
 #include <algorithm>
 #include <iomanip>
 #include <limits>
 
-void IvestiPazymius(StudentasA& sk, int paz) {
-    int* pazymys = new int[sk.paz_kiekis + 1];
-    for (int i = 0; i < sk.paz_kiekis; i++) {
-        pazymys[i] = sk.paz[i];
+
+void ivesti_pazymius(StudentasA& s, int paz)
+{
+    if (s.paz_talpa == 0)
+    {
+        s.paz_talpa = 4;
+        s.paz = new int[s.paz_talpa];
     }
-    pazymys[sk.paz_kiekis] = paz;
-    delete[] sk.paz;
-    sk.paz = pazymys;
-    sk.paz_kiekis++;
+    if (s.paz_kiekis >= s.paz_talpa)
+    {
+        s.paz_talpa *= 2;
+        int* naujas = new int[s.paz_talpa];
+
+        for (int i = 0; i < s.paz_kiekis; ++i)
+            naujas[i] = s.paz[i];
+
+        delete[] s.paz;
+        s.paz = naujas;
+    }
+    s.paz[s.paz_kiekis++] = paz;
 }
 
-double vidurkis(int* paz, int paz_kiekis) {
-    if (paz_kiekis == 0)
-        return 0;
-    int suma = 0;
-    for (int i = 0; i < paz_kiekis; i++) {
+double vidurkis(const int* paz, int paz_kiekis)
+{
+    if (paz_kiekis <= 0) return 0.00;
+
+    double suma = 0.00;
+    for (int i = 0; i < paz_kiekis; ++i)
         suma += paz[i];
-    }
-    double vid = static_cast<double>(suma) / paz_kiekis;
-    return vid;
+
+    return suma / paz_kiekis;
 }
 
-double mediana(int* paz, int paz_kiekis) {
-    if (paz_kiekis == 0)
-        return 0;
-    int* kopija = new int[paz_kiekis];
-    for (int i = 0; i < paz_kiekis; i++) {
-        kopija[i] = paz[i];
-    }
-    std::sort(kopija, kopija + paz_kiekis);
-    double med;
-    if (paz_kiekis % 2 == 1) {
-        med = kopija[paz_kiekis / 2];
-    }
-    else {
-        med = (kopija[paz_kiekis / 2 - 1] + kopija[paz_kiekis / 2]) / 2.0;
-    }
-    delete[] kopija;
-    return med;
+
+double mediana(const int* paz, int paz_kiekis)
+{
+    if (paz_kiekis <= 0) return 0.00;
+
+    int* temp = new int[paz_kiekis];
+
+    std::copy(paz, paz + paz_kiekis, temp);
+    std::sort(temp, temp + paz_kiekis);
+
+    double rezultatas;
+
+    if (paz_kiekis % 2 == 0)
+        rezultatas = (temp[paz_kiekis / 2 - 1] + temp[paz_kiekis / 2]) / 2.00;
+    else
+        rezultatas = temp[paz_kiekis / 2];
+
+    delete[] temp;
+    return rezultatas;
 }
+
 
 double galutinis_vid(double x, int egz) {
     return x * 0.4 + egz * 0.6;
 }
 
 int skaiciavimo_metodas() {
-    std::cout << "Pasirinkite skaiciavimo metoda (1 - vidurkis, 2 - mediana): ";
     int metodas;
-    std::cin >> metodas;
-    return metodas;
+    while (true) {
+        std::cout << "Pasirinkite skaiciavimo metoda (1 - vidurkis, 2 - mediana): ";
+        if (!(std::cin >> metodas)) {
+            std::cout << "Ivestis turi buti skaicius 1 arba 2, bandykite dar karta\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            continue;
+        }
+        if (metodas == 1 || metodas == 2) {
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            return metodas;
+        }
+        std::cout << "Neteisingas pasirinkimas. Pasirinkite 1 arba 2.\n";
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
 }
 
-void pasirinkimo_metodas(int skaiciavimo_metodas, int studentu_kiekis, StudentasA* studentai) {  
+void pasirinkimo_metodas(int skaiciavimo_metodas, int studentu_kiekis, StudentasA* studentai) {
     for (int i = 0; i < studentu_kiekis; i++) {
         double x;
         if (skaiciavimo_metodas == 1) {
@@ -73,7 +102,7 @@ void pasirinkimo_metodas(int skaiciavimo_metodas, int studentu_kiekis, Studentas
     }
 }
 
-void isvedimas(StudentasA* studentai, int studentu_kiekis, int metodas) { 
+void isvedimas(StudentasA* studentai, int studentu_kiekis, int metodas) {
     std::string rez = (metodas == 1) ? "Galutinis (vidurkis)" : "Galutinis (mediana)";
     std::cout << std::left << std::setw(15) << "Vardas"
         << std::left << std::setw(15) << "Pavarde"
@@ -87,47 +116,60 @@ void isvedimas(StudentasA* studentai, int studentu_kiekis, int metodas) {
 }
 void studento_pridejimas(StudentasA*& arr, int& studentu_kiekis, const StudentasA& kitas)
 {
-    StudentasA* temp = new StudentasA[kiekis + 1];
+    StudentasA* temp = new StudentasA[studentu_kiekis + 1];
 
-    for (int i = 0; i < kiekis; ++i)
+    for (int i = 0; i < studentu_kiekis; ++i)
     {
         temp[i] = arr[i];
     }
-    temp[kiekis] = naujas;
+    temp[studentu_kiekis] = kitas;
 
     delete[] arr;
     arr = temp;
-    kiekis++;
+    studentu_kiekis++;
 }
 
 int ivesties_tikrinimas(const std::string& zinute)
 {
-    std::string line;
+    int value;
     while (true)
     {
         std::cout << zinute;
-        std::getline(std::cin, line);
-
-        try {
-            int value = std::stoi(line);
-
-            if (value < 1 or value > 10) {
-                std::cout << "Ivestis turi buti tarp 1 ir 10 \n";
-                continue;
-            }
+        std::cin >> value;
+        if (std::cin.fail())
+        {
+            std::cout << "Ivestis turi buti skaicius, bandykite dar karta\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            continue;
+        }
+        if (value == -1 || (value >= 0 && value <= 10))
+        {
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             return value;
         }
-        catch (const std::exception&) { 
-            std::cout << "Ivestis turi buti skaicius, bandykite dar karta\n";
+
+        std::cout << "Ivestis turi buti tarp 0 ir 10 (arba -1 baigti)\n";
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+}
+std::string ivesti_varda_ar_pavarde(const std::string& zinute)
+{
+    std::string tekstas;
+    while (true) {
+        std::cout << zinute;
+        std::cin >> tekstas;
+        if (!tekstas.empty()) {
+            return tekstas;
         }
+        std::cout << "Ivestis negali buti tuscia\n";
     }
 }
 
 
-
-
-void isvalyti_atminti(StudentasA* arr, int kiekis) {
-    for (int i = 0; i < kiekis; i++) {
+void atlaisvinti(StudentasA* arr, int studentu_kiekis)
+{
+    for (int i = 0; i < studentu_kiekis; i++) {
         delete[] arr[i].paz;
     }
     delete[] arr;

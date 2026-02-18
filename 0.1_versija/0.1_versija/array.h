@@ -1,23 +1,31 @@
+#ifndef ARRAY_H
+#define ARRAY_H
+
 #include <string>
 
-struct SudentasA {
-	std::string vardas;
-	std::string pavarde;
-
-	int* paz = nullptr;
-	int paz_kiekis = 0;
-	int egz = 0;
-	double rez = 0.0;
-
+struct StudentasA {
+    std::string vardas = "";
+    std::string pavarde = "";
+    int* paz = nullptr;
+    int paz_kiekis = 0;
+    int paz_talpa = 0;
+    int egz = 0;
+    double rez = 0.00;
 };
 
-void IvestiPazymius(StudentasA& sk, int paz);
-
-double vidurkis(int* paz, int paz_kiekis);
-double mediana(int* paz, int paz_kiekis);
-double galutinis_vid(int* paz, int paz_kiekis, int egz);
+void ivesti_pazymius(StudentasA& sk, int paz);
+double vidurkis(const int* paz, int paz_kiekis);
+double mediana(const int* paz, int paz_kiekis);
+double galutinis_vid(double x, int egz);
 
 int skaiciavimo_metodas();
-void pasirinkimo_metodas(int skaiciavimo_metodas, StudentasA& sk);
+void pasirinkimo_metodas(int tipas, int studentu_kiekis, StudentasA* studentai);
+void isvedimas(StudentasA* studentai, int studentu_kiekis, int metodas);
 
-void isvalyti_atminti(StudentasA* studentai, int studentu_kiekis);
+void studento_pridejimas(StudentasA*& arr, int& studentu_kiekis, const StudentasA& naujas);
+void atlaisvinti(StudentasA* arr, int studentu_kiekis);
+
+std::string ivesti_varda_ar_pavarde(const std::string& zinute);
+int ivesties_tikrinimas(const std::string& zinute);
+
+#endif

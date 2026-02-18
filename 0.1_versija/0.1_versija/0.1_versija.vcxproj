@@ -124,6 +124,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="0.1_versija.cpp" />
+    <ClCompile Include="array.cpp" />
+    <ClCompile Include="array_funkc.cpp" />
+    <ClCompile Include="generator.cpp" />
+    <ClCompile Include="vector.cpp" />
+    <ClCompile Include="vector_funkc.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="array.h" />
+    <ClInclude Include="struktura.h" />
+    <ClInclude Include="vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

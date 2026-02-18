@@ -1,7 +1,7 @@
 #include <iostream>
 #include <limits>
 
-void vectorFunkcija();
+//void vectorFunkcija();
 void arrayFunkcija();
 
 int main()
@@ -18,10 +18,10 @@ int main()
             continue;
         }
 
-        if (pasirinkimas == 1) {
+        /*if (pasirinkimas == 1) {
             vectorFunkcija();
             break;
-        }
+        }*/
         if (pasirinkimas == 2) {
             arrayFunkcija();
             break;

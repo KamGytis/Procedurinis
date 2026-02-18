@@ -1,4 +1,4 @@
-﻿  0.1_versija.cpp
-0.1_versija.obj : error LNK2019: unresolved external symbol "void __cdecl vectorFunkcija(void)" (?vectorFunkcija@@YAXXZ) referenced in function main
-0.1_versija.obj : error LNK2019: unresolved external symbol "void __cdecl arrayFunkcija(void)" (?arrayFunkcija@@YAXXZ) referenced in function main
-C:\Users\GYTIS\Documents\GitHub\Procedurinis\0.1_versija\x64\Debug\0.1_versija.exe : fatal error LNK1120: 2 unresolved externals
+﻿  array.cpp
+  array_funkc.cpp
+  Generating Code...
+  0.1_versija.vcxproj -> C:\Users\GYTIS\Documents\GitHub\Procedurinis\0.1_versija\x64\Debug\0.1_versija.exe
