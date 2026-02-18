@@ -1,1 +1,1 @@
-# Procedurinis
+# Obijektinis
